@@ -12,6 +12,10 @@ jobs:
         toxenv: [pep8, isort, black, pypi-description, docs, towncrier]
     steps:
     - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+    - run: |
+        git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v1
       with:
